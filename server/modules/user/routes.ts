@@ -28,4 +28,4 @@ class UserRoutes {
 
 }
 
-export default UserRoutes;
+export default new UserRoutes();

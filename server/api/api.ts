@@ -2,19 +2,17 @@ import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import { Application } from 'express';
-import Routes from './routes/routes';
-import { errorHandlerApi } from './errorHandlerApi';
-import AuthConfig from '../auth';
+import routes from './routes/routes';
+import handler from './responses/handle';
+import auth from '../auth';
 
 
 class Api {
 
     public express: Application;
-    public auth;
 
     constructor(){
         this.express = express();
-        this.auth = AuthConfig();
         this.middleware();
     }
 
@@ -28,13 +26,13 @@ class Api {
         this.express.use(morgan('dev'));
         this.express.use(bodyParser.urlencoded({"extended": true}));
         this.express.use(bodyParser.json());
-        this.express.use(errorHandlerApi);
-        this.express.use(this.auth.initialize());
-        this.router(this.express, this.auth);
+        this.express.use(handler.errorHandlerApi);
+        this.express.use(auth.config().initialize());
+        this.router(this.express, auth);
     }
 
     private router(app: Application, auth: any): void {
-        new Routes(app, auth);
+        routes.initRoutes(app, auth);
     }
 }
 

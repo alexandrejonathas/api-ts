@@ -7,12 +7,11 @@ var express_1 = __importDefault(require("express"));
 var morgan_1 = __importDefault(require("morgan"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var routes_1 = __importDefault(require("./routes/routes"));
-var errorHandlerApi_1 = require("./errorHandlerApi");
+var handle_1 = __importDefault(require("./responses/handle"));
 var auth_1 = __importDefault(require("../auth"));
 var Api = /** @class */ (function () {
     function Api() {
         this.express = express_1.default();
-        this.auth = auth_1.default();
         this.middleware();
     }
     Api.prototype.middleware = function () {
@@ -25,12 +24,12 @@ var Api = /** @class */ (function () {
         this.express.use(morgan_1.default('dev'));
         this.express.use(body_parser_1.default.urlencoded({ "extended": true }));
         this.express.use(body_parser_1.default.json());
-        this.express.use(errorHandlerApi_1.errorHandlerApi);
-        this.express.use(this.auth.initialize());
-        this.router(this.express, this.auth);
+        this.express.use(handle_1.default.errorHandlerApi);
+        this.express.use(auth_1.default.config().initialize());
+        this.router(this.express, auth_1.default);
     };
     Api.prototype.router = function (app, auth) {
-        new routes_1.default(app, auth);
+        routes_1.default.initRoutes(app, auth);
     };
     return Api;
 }());

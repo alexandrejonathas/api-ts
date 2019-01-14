@@ -24,5 +24,5 @@ var UserRoutes = /** @class */ (function () {
     };
     return UserRoutes;
 }());
-exports.default = UserRoutes;
+exports.default = new UserRoutes();
 //# sourceMappingURL=routes.js.map

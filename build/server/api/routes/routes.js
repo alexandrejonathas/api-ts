@@ -6,21 +6,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var routes_1 = __importDefault(require("../../modules/user/routes"));
 var auth_1 = __importDefault(require("../../modules/auth/auth"));
 var Routes = /** @class */ (function () {
-    function Routes(app, auth) {
-        this.userRoutes = new routes_1.default();
-        this.tokenRoutes = new auth_1.default();
-        this.auth = auth;
-        this.getRoutes(app);
+    function Routes() {
     }
-    Routes.prototype.getRoutes = function (app) {
-        app.route('/api/users').all(this.auth.authenticate()).get(this.userRoutes.index);
-        app.route('/api/users/:id').all(this.auth.authenticate()).get(this.userRoutes.findOne);
-        app.route('/api/users').all(this.auth.authenticate()).post(this.userRoutes.create);
-        app.route('/api/users/:id').all(this.auth.authenticate()).put(this.userRoutes.update);
-        app.route('/api/users/:id').all(this.auth.authenticate()).delete(this.userRoutes.delete);
-        app.route('/token').post(this.tokenRoutes.auth);
+    Routes.prototype.initRoutes = function (app, auth) {
+        app.route('/api/users').all(auth.config().authenticate()).get(routes_1.default.index);
+        app.route('/api/users/:id').all(auth.config().authenticate()).get(routes_1.default.findOne);
+        app.route('/api/users').all(auth.config().authenticate()).post(routes_1.default.create);
+        app.route('/api/users/:id').all(auth.config().authenticate()).put(routes_1.default.update);
+        app.route('/api/users/:id').all(auth.config().authenticate()).delete(routes_1.default.delete);
+        app.route('/token').post(auth_1.default.auth);
     };
     return Routes;
 }());
-exports.default = Routes;
+exports.default = new Routes();
 //# sourceMappingURL=routes.js.map

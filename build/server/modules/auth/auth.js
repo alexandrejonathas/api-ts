@@ -12,8 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var _ = __importStar(require("lodash"));
 var service_1 = __importDefault(require("../user/service"));
-var authSuccess_1 = __importDefault(require("../../api/responses/authSuccess"));
-var authError_1 = __importDefault(require("../../api/responses/authError"));
+var handle_1 = __importDefault(require("../../api/responses/handle"));
 var TokenRoutes = /** @class */ (function () {
     function TokenRoutes() {
     }
@@ -24,11 +23,11 @@ var TokenRoutes = /** @class */ (function () {
         };
         if (credentials.hasOwnProperty('email') && credentials.hasOwnProperty('password')) {
             service_1.default.getByEmail(credentials.email)
-                .then(_.partial(authSuccess_1.default, res, credentials))
-                .catch(_.partial(authError_1.default, req, res));
+                .then(_.partial(handle_1.default.authSuccess, res, credentials))
+                .catch(_.partial(handle_1.default.authError, req, res));
         }
     };
     return TokenRoutes;
 }());
-exports.default = TokenRoutes;
+exports.default = new TokenRoutes();
 //# sourceMappingURL=auth.js.map
