@@ -1,26 +1,44 @@
 import { testDouble, expect } from './config/helpers';
-import ServiceUser from '../../server/modules/user/service';
+import userService from '../../server/modules/user/service';
 import { doesNotReject } from 'assert';
 const models = require('../../server/models');
 
 describe('Testes Unitários do Controller', () =>{
 
-    const user = {
+    const userDefault = {
         id: 1,
-        name: 'New user',
-        email: 'newuser@rmail.com',
+        name: 'Degault user',
+        email: 'defaultuser@rmail.com',
         password: '1234'
-    }      
+    }
+    
+    beforeEach(done => {
+        models.User.destroy({
+            where: {}
+        })
+        .then(() => {
+            models.User.create(userDefault)
+            .then(()=>{
+                console.log('Usuário default criado com sucesso!');
+                done();
+            })
+        })
+    })
 
     describe('Método Create', () => {
         it('Deve criar um novo usuário', () => {
-            const service = new ServiceUser();
-            return service.create(user)
-                        .then(data => {
-                            expect(data.dataValues).to.have.all.keys(
-                                ['email', 'id', 'name', 'password', 'updatedAt', 'createdAt' ]
-                            );
-                        });
+            const userDefault = {
+                id: 2,
+                name: 'New user',
+                email: 'newuser@rmail.com',
+                password: '1234'
+            }            
+            return userService.create(userDefault)
+                    .then(data => {
+                        expect(data.dataValues).to.have.all.keys(
+                            ['email', 'id', 'name', 'password', 'updatedAt', 'createdAt' ]
+                        );
+                    });
         });
     });
 
@@ -31,8 +49,7 @@ describe('Testes Unitários do Controller', () =>{
                 email: 'updateuser@email.com',
                 password: '12345'
             }
-            const service = new ServiceUser();
-            return service.update(user.id, userUpdate)
+            return userService.update(userDefault.id, userUpdate)
                         .then(data => {
                             expect(data[0]).to.be.equal(1);
                         });
@@ -40,22 +57,17 @@ describe('Testes Unitários do Controller', () =>{
     });
 
     describe('Método List', () => {
-        it('Deve retornar uma lista com todos os usuário', () => {
-            const service = new ServiceUser();
-            return service.getAll()
-                        .then(data => {
-                            expect(data).to.be.an('array');                            
-                            expect(data[0]).to.have.all.keys(
-                                ['email', 'id', 'name', 'password' ]
-                            );
-                        });            
+        it('Deve retornar uma lista com todos os usuário', () => {            
+            return userService.getAll()
+                    .then(data => {
+                        expect(data).to.be.an('array');                            
+                    });            
         });
     });
 
     describe('Método GetById', () => {
         it('Deve retornar os dados de um usuário pelo id', () => {
-            const service = new ServiceUser();
-            return service.getById(user.id)
+            return userService.getById(userDefault.id)
                         .then(data => {                            
                             expect(data).to.have.all.keys(
                                 ['email', 'id', 'name', 'password' ]
@@ -66,10 +78,8 @@ describe('Testes Unitários do Controller', () =>{
 
     describe('Método GetByEmail', () => {
         it('Deve retornar os dados de um usuário pelo email', () => {
-            const service = new ServiceUser();
-            return service.getByEmail('updateuser@email.com')
-                        .then(data => {
-                            console.log(data);                            
+            return userService.getByEmail(userDefault.email)
+                        .then(data => {                           
                             expect(data).to.have.all.keys(
                                 ['email', 'id', 'name', 'password' ]
                             );
@@ -79,8 +89,7 @@ describe('Testes Unitários do Controller', () =>{
 
     describe('Método Delete', () => {
         it('Deve deletar um usuário', () => {
-            const service = new ServiceUser();
-            return service.delete(1)
+            return userService.delete(userDefault.id)
                         .then(data => {
                             expect(data).to.be.equal(1);
                         });

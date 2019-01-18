@@ -6,9 +6,9 @@ const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const config = require('../config/env/config')();
 //const env = config.env || 'development';
-const db = {};
+const db: any = {};
 
-let sequelize;
+let sequelize: any;
 
 if (config.dbUrl) {
   sequelize = new Sequelize(config.dbUrl);
