@@ -11,4 +11,3 @@ module.exports = {
     serverPort: 3000,
     secret: 'S3cr3t#$!'
 };
-//# sourceMappingURL=development.env.js.map

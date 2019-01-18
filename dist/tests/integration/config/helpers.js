@@ -22,4 +22,3 @@ var expect = Chai.expect;
 exports.expect = expect;
 var testDouble = td;
 exports.testDouble = testDouble;
-//# sourceMappingURL=helpers.js.map

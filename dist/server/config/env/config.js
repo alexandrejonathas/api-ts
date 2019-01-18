@@ -5,4 +5,3 @@ if (ambiente == 'development') {
     extension = 'ts';
 }
 module.exports = function () { return require("../env/" + ambiente + ".env." + extension); };
-//# sourceMappingURL=config.js.map

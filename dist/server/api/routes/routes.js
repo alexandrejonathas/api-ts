@@ -19,4 +19,3 @@ var Routes = /** @class */ (function () {
     return Routes;
 }());
 exports.default = new Routes();
-//# sourceMappingURL=routes.js.map

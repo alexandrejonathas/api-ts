@@ -34,4 +34,3 @@ var User = /** @class */ (function () {
     return User;
 }());
 exports.default = new User();
-//# sourceMappingURL=service.js.map

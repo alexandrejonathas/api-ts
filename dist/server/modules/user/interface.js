@@ -25,4 +25,3 @@ function createUserByEmail(_a) {
     };
 }
 exports.createUserByEmail = createUserByEmail;
-//# sourceMappingURL=interface.js.map

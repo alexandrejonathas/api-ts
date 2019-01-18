@@ -51,4 +51,3 @@ var UserController = /** @class */ (function () {
     return UserController;
 }());
 exports.default = new UserController();
-//# sourceMappingURL=controller.js.map

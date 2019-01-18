@@ -39,4 +39,3 @@ var Auth = /** @class */ (function () {
     return Auth;
 }());
 exports.default = new Auth();
-//# sourceMappingURL=auth.js.map

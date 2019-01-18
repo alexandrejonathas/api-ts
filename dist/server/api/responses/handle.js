@@ -55,4 +55,3 @@ var Handler = /** @class */ (function () {
     return Handler;
 }());
 exports.default = new Handler();
-//# sourceMappingURL=handle.js.map
