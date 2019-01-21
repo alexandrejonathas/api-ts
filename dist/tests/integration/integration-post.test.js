@@ -124,6 +124,7 @@ describe('Testes de integração do modulo Post', function () {
                 helpers_1.expect(res.body.payload[1][0].id).to.eql(postDefault.id);
                 helpers_1.expect(res.body.payload[1][0].title).to.eql(post.title);
                 helpers_1.expect(res.body.payload[1][0].text).to.eql(post.text);
+                helpers_1.expect(res.body.payload[1][0].authorId).to.eql(authorDefault.id);
                 done(error);
             });
         });

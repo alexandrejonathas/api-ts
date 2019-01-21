@@ -95,7 +95,7 @@ describe('Testes de integração do modulo Author', function () {
                 helpers_1.expect(res.status).to.equals(HttpStatus.OK);
                 helpers_1.expect(res.body.payload.id).to.equals(authorDefault.id);
                 helpers_1.expect(res.body.payload).to.have.all.keys([
-                    'id', 'name'
+                    'id', 'name', 'posts'
                 ]);
                 done(error);
             });
