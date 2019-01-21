@@ -1,49 +1,49 @@
 import { Request, Response } from 'express';
 import * as _ from 'lodash';
-import userService from './service';
+import postService from './service';
 import handle from '../../api/responses/handle';
 
-class UserController {
+class PostController {
 
     constructor(){}
 
     getAll(req: Request, res: Response){
-        userService.getAll()
+        postService.getAll()
         .then(_.partial(handle.onSuccess, res))
-        .catch(_.partial(handle.onError, res, 'Ocorreu um erro ao buscar todos os usuários!'));
+        .catch(_.partial(handle.onError, res, 'Ocorreu um erro ao buscar todos os autores!'));
     }
 
     findOne(req: Request, res: Response){
         let id = parseInt(req.params.id);
-        userService.getById(id)
+        postService.getById(id)
         .then(_.partial(handle.onSuccess, res))
-        .catch(_.partial(handle.onError, res, `Ocorreu um erro ao buscar o usuário pelo id: ${id}`));
+        .catch(_.partial(handle.onError, res, `Ocorreu um erro ao buscar o autor pelo id: ${id}`));
     }    
 
     create(req: Request, res: Response){
-        userService.create(req.body)
+        postService.create(req.body)
         .then(_.partial(handle.onSuccess, res))
         .catch(_.partial(handle.dbError, res))
-        .catch(_.partial(handle.onError, res, 'Ocorreu um erro ao tentar criar um usuário!'));
+        .catch(_.partial(handle.onError, res, 'Ocorreu um erro ao tentar criar um autor!'));
     }
 
     update(req: Request, res: Response){
         const id = parseInt(req.params.id);
         const props = req.body;
-        userService.update(id, props)
+        postService.update(id, props)
         .then(_.partial(handle.onSuccess, res))
         .catch(_.partial(handle.dbError, res))
-        .catch(_.partial(handle.onError, res, 'Ocorreu um erro ao tentar atualizar o usuário!'));
+        .catch(_.partial(handle.onError, res, 'Ocorreu um erro ao tentar atualizar o autor!'));
     }
     
     delete(req: Request, res: Response){
         const id = parseInt(req.params.id);
-        userService.delete(id)
+        postService.delete(id)
         .then(_.partial(handle.onSuccess, res))
         .catch(_.partial(handle.dbError, res))
-        .catch(_.partial(handle.onError, res, 'Ocorreu um erro ao tentar excluir um usuário!' ));
+        .catch(_.partial(handle.onError, res, 'Ocorreu um erro ao tentar excluir um autor!' ));
     }    
 
 }
 
-export default new UserController();
+export default new PostController();
